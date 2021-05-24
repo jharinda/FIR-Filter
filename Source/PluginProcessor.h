@@ -88,5 +88,8 @@ public:
 
 private:
     //==============================================================================
+    float lastSampleRate;
+
+    juce::dsp::ProcessorDuplicator <juce::dsp::FIR::Filter<float>, juce::dsp::FIR::Coefficients<float>> firFilter;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FIRFilterAudioProcessor)
 };
