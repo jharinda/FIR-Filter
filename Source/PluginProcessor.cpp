@@ -19,9 +19,22 @@ FIRFilterAudioProcessor::FIRFilterAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),treeState(*this,nullptr)
 #endif
 {
+    juce::NormalisableRange<float> filterCutoffRange(minFilterCutoff, maxFilterCutoff);
+    filterCutoffRange.setSkewForCentre(1000.0f);
+
+    juce::NormalisableRange<float> filterResonanceRange(minFilterResonance, maxFilterResonance);
+    juce::NormalisableRange<float> filterTypeMenuRange(minFilterTypeMenu, maxFilterTypeMenu);
+    juce::NormalisableRange<float> filterGainFactorRange(minFilterGainFactor, maxFilterGainFactor);
+
+    treeState.createAndAddParameter(filterCutoffId, filterCutoffName, filterCutoffName, filterCutoffRange, defaultFilterCutoff, nullptr, nullptr);
+    treeState.createAndAddParameter(filterResonanceId, filterResonanceName, filterResonanceName, filterResonanceRange, defaultFilterResonance, nullptr, nullptr);
+    treeState.createAndAddParameter(filterTypeMenuId, filterTypeMenuName, filterTypeMenuName, filterTypeMenuRange, defaultFilterTypeMenu, nullptr, nullptr);
+    treeState.createAndAddParameter(filterGainFactorId, filterGainFactorName, filterGainFactorName, filterGainFactorRange, defaultFilterGainFactor, nullptr, nullptr);
+
+    treeState.state = juce::ValueTree("Tree");
 }
 
 FIRFilterAudioProcessor::~FIRFilterAudioProcessor()
