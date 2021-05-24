@@ -31,5 +31,7 @@ private:
 
     juce::Slider filterCutoffDial;
 
+    juce::ScopedPointer <juce::AudioProcessorValueTreeState::SliderAttachment> filterCutoffValue;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FIRFilterAudioProcessorEditor)
 };
